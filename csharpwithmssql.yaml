@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  webapi:
+    image: wepapiv2
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      #Burada verilen Connection String c# back-end'de bulunan Connection String ile aynı olmalıdır.Tabi Env Konfigrasyonlarına eklemelisiniz.
+      - ConnectionStrings__DefaultConnection=Server=nodejs-mssql-1;Database=BanuPass;User Id=sa;Password=YourPassword123;TrustServerCertificate=True;Encrypt=False;
+    ports:
+      - "5000:80"
+      - "5001:443"
+    depends_on:
+      - mssql
+    networks:
+      - web-network
+
+  mssql:
+    user: root
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourPassword123
+    ports:
+      - "1433:1433"
+    networks:
+      - web-network
+
+networks:
+  app-network:
+    driver: bridge

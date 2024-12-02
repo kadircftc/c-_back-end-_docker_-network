@@ -6,6 +6,9 @@ EXPOSE 443
 
 # Build aşaması - SDK kullanıyoruz
 # Güncel projenizde bulunan Class Libraryleri buraya ekleyebilirsiniz veya bulunmayanları çıkartabilirsiniz
+#Bu DockerFile'ı proje dizininize ekleyerek> docker build -t webapi . komutu ile imaji alabilirsiniz. 
+#Daha sonra csharpwithmssql.yaml dosyası dizininde docker-compose up csharpwithmssql.yaml komutu ile network ü oluşturup localhost:5000/swagger/index.html adresinde Swagger arayüzüne giriş yapabilirsiniz.
+
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["WebAPI/WebAPI.csproj", "WebAPI/"]
